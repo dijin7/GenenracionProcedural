@@ -77,8 +77,12 @@ public class SCRIPT : MonoBehaviour
 
     void aparecerObjeto(GameObject objeto, int anchoObjeto, int alturaObjeto)
     {
-        objeto = Instantiate(objeto, new Vector2(anchoObjeto, alturaObjeto), Quaternion.identity);
-        objeto.transform.parent = this.transform;
+        GameObject instancia = Instantiate(objeto, new Vector2(anchoObjeto, alturaObjeto), Quaternion.identity);
+        instancia.transform.parent = this.transform;
+        if (objeto.name.ToLower().Contains("hierba") || objeto.name.ToLower().Contains("pasto"))
+        {
+            instancia.tag = "Hierba";
+        }
     }
 
     void Update()
