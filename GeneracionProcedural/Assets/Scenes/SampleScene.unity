@@ -225,7 +225,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 37.15
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -250,7 +250,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 35.7, y: 31.2, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -403,15 +403,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 875782567819136590, guid: 659840f90e2c1984ba7818fe00a184fb, type: 3}
       propertyPath: angle
-      value: 10
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 875782567819136590, guid: 659840f90e2c1984ba7818fe00a184fb, type: 3}
       propertyPath: length
-      value: 0.5
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 875782567819136590, guid: 659840f90e2c1984ba7818fe00a184fb, type: 3}
       propertyPath: iterations
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 875782567819136590, guid: 659840f90e2c1984ba7818fe00a184fb, type: 3}
       propertyPath: plantaPrefab
@@ -419,7 +419,7 @@ PrefabInstance:
       objectReference: {fileID: 1529447314142110434, guid: 659840f90e2c1984ba7818fe00a184fb, type: 3}
     - target: {fileID: 875782567819136590, guid: 659840f90e2c1984ba7818fe00a184fb, type: 3}
       propertyPath: cantidadPlantas
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1529447314142110434, guid: 659840f90e2c1984ba7818fe00a184fb, type: 3}
       propertyPath: m_Name

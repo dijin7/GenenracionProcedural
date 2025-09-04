@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   axiom: F
-  iterations: 2
-  angle: 10
-  length: 0.5
-  cantidadPlantas: 5
+  iterations: 3
+  angle: 30
+  length: 1
+  cantidadPlantas: 2
   plantaPrefab: {fileID: 0}

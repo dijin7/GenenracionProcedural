@@ -14,7 +14,7 @@ public class Grama : MonoBehaviour
 
     [Header("Prefab de la planta (este mismo script)")]
     public GameObject plantaPrefab;
-
+    //public GameObject ramitaPrefab;
     private string currentString;
     private Dictionary<char, string> rules = new Dictionary<char, string>();
 
@@ -93,6 +93,23 @@ public class Grama : MonoBehaviour
                 Vector3 start = position;
                 position += rotation * Vector3.up * length;
                 Debug.DrawLine(start, position, Color.green, 100f, false);
+               
+                LineRenderer lineRenderer = new GameObject("Line").AddComponent<LineRenderer>();
+                lineRenderer.startWidth = 0.1f;
+                lineRenderer.endWidth = 0.1f;
+                lineRenderer.positionCount = 2;
+                lineRenderer.SetPosition(0, start);
+                lineRenderer.SetPosition(1, position);
+                lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
+                lineRenderer.startColor = Color.yellow;
+                lineRenderer.endColor = Color.red;
+
+                //Instantiate(ramitaPrefab, start, rotation);
+
+                // Ajusta la escala de la ramita para que coincida con la longitud
+                //positionStack.Push(start);
+                //ramitaPrefab.transform.localScale = new Vector3(ramitaPrefab.transform.localScale.x, length / 2, ramitaPrefab.transform.localScale.z);
+
             }
             else if (c == '+')
             {
