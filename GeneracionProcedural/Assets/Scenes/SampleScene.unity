@@ -2168,7 +2168,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 69.7, y: 31.2, z: -10}
+  m_LocalPosition: {x: 63, y: 31.2, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8094,6 +8094,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   generador: {fileID: 649801977}
   generarTerrenoBoton: {fileID: 1073398212}
+  alturaInput: {fileID: 1310340393}
+  anchoInput: {fileID: 1270380696}
+  nBloquesMinInput: {fileID: 315659251}
+  nBloquesMaxInput: {fileID: 1633368636}
+  nRangoMinInput: {fileID: 1461415356}
+  nRangoMaxInput: {fileID: 868797973}
 --- !u!1 &1839332489
 GameObject:
   m_ObjectHideFlags: 0
