@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class SCRIPT : MonoBehaviour
 {
@@ -11,9 +12,9 @@ public class SCRIPT : MonoBehaviour
     //explicare el codigo en comentarios de aquí en adelante
 
 
-    [SerializeField] int ancho, altura; //hacen referencia a la altura y anchura maxima de la generación
+    public int ancho, altura; //hacen referencia a la altura y anchura maxima de la generación
 
-    [SerializeField] int nBloquesMinimoEntrePiedraYPasto, nBloquesMaximoEntrePiedraYPasto; //este script divide en 3 terrenos: tierra, piedra, hierba
+    public int nBloquesMinimoEntrePiedraYPasto, nBloquesMaximoEntrePiedraYPasto; //este script divide en 3 terrenos: tierra, piedra, hierba
     /// La hierba se genera encima de todo y no tiene ninguna regla compleja alrededor de ello
     /// En cambio la piedra y tierra varian segunn los parametros de ancho, altura, nBloquesMinimoEntrePiedraYPasto y nBloquesMaximoEntrePiedraYPasto
     /// nBloquesMinimoEntrePiedraYPasto = cuales son los bloques minimos que existen entre la tierra y el pasto
@@ -21,13 +22,13 @@ public class SCRIPT : MonoBehaviour
     /// Todas estas variables sirven mayormente para la modificación entre que cantidad hay de tierra y piedra
 
 
-    [SerializeField] int rangoAlturaMinima, rangoAlturaMaxima; //Estos son ajustes de los crecimientos o disminución del terreno
+    public int rangoAlturaMinima, rangoAlturaMaxima; //Estos son ajustes de los crecimientos o disminución del terreno
     /// rangoAlturaMinima = mientras mayor sea con respecto al rangoAlturaMaxima, el terreno ira en picada
     /// rangoAlturaMaxima = mientras mayor sea con respecto al rangoAlturaMinima, el terreno ira hacia arriba
     /// si son iguales, el terreno tendera a ser mas plano, si el maximo es mayor, el terreno ira hacia arriba, si el minimo es mayor, el terreno tendera hacia abajo 
 
 
-    [SerializeField] GameObject tierra, piedra, pasto; //objetos utilizados para la generación
+    public GameObject tierra, piedra, pasto; //objetos utilizados para la generación
 
 
     void Start()
@@ -35,7 +36,7 @@ public class SCRIPT : MonoBehaviour
         Generar();
     }
 
-    void Generar()
+    public void Generar()
     {
         for (int x = 0; x < ancho; x++)
         {
@@ -74,6 +75,32 @@ public class SCRIPT : MonoBehaviour
         }
     }
 
+    public void EliminarTerreno() ///Fui flojo aquí la verdad XD luego lo miro mejor
+    {
+        GameObject[] hierba = GameObject.FindGameObjectsWithTag("Hierba");
+
+        foreach (GameObject obj in hierba)
+        {
+            Destroy(obj);
+        }
+        
+        GameObject[] tierra = GameObject.FindGameObjectsWithTag("Tierra");
+
+        foreach (GameObject obj in tierra)
+        {
+            Destroy(obj);
+        }
+
+        GameObject[] piedra = GameObject.FindGameObjectsWithTag("Piedra");
+
+        foreach (GameObject obj in piedra)
+        {
+            Destroy(obj);
+        }
+
+    }
+
+
 
     void aparecerObjeto(GameObject objeto, int anchoObjeto, int alturaObjeto)
     {
@@ -87,6 +114,5 @@ public class SCRIPT : MonoBehaviour
 
     void Update()
     {
-        
     }
 }
