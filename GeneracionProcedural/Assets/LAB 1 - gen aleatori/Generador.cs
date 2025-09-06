@@ -28,8 +28,10 @@ public class SCRIPT : MonoBehaviour
     /// si son iguales, el terreno tendera a ser mas plano, si el maximo es mayor, el terreno ira hacia arriba, si el minimo es mayor, el terreno tendera hacia abajo 
 
 
-    public GameObject tierra, piedra, pasto; //objetos utilizados para la generación
 
+    
+    public GameObject tierra, piedra, pasto; //objetos utilizados para la generación
+    public string nombreTierra, nombrePiedra, nombrePasto;
 
     void Start()
     {

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8607206327635508655}
   - component: {fileID: 434488336032648917}
   m_Layer: 6
-  m_Name: ArenProfunda
+  m_Name: ArenaProfunda
   m_TagString: Tierra
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

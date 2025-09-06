@@ -221,6 +221,12 @@ MonoBehaviour:
   nBloquesMaxInput: {fileID: 1311572612}
   nRangoMinInput: {fileID: 889268429}
   nRangoMaxInput: {fileID: 1455748159}
+  DropSuperior: {fileID: 0}
+  DropSuperiorValor: 
+  DropCapaMedia: {fileID: 0}
+  DropCapaMediaValor: 
+  DropCapaInferior: {fileID: 0}
+  DropCapaInferiorValor: 
 --- !u!114 &7206000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5687,6 +5693,9 @@ MonoBehaviour:
   tierra: {fileID: 1109958954029709583, guid: 84c45442bec0f8d46a580ed48817fcc7, type: 3}
   piedra: {fileID: 6031452798665817836, guid: 6574bf26876a2454ca3f616e07754a9a, type: 3}
   pasto: {fileID: 4434541836979461460, guid: 473f020ef2737b7429e7d31d087657d3, type: 3}
+  nombreTierra: 
+  nombrePiedra: 
+  nombrePasto: 
 --- !u!4 &649801978
 Transform:
   m_ObjectHideFlags: 0
@@ -18298,6 +18307,12 @@ MonoBehaviour:
   nBloquesMaxInput: {fileID: 1633368636}
   nRangoMinInput: {fileID: 1461415356}
   nRangoMaxInput: {fileID: 868797973}
+  DropSuperior: {fileID: 475053716}
+  DropSuperiorValor: 
+  DropCapaMedia: {fileID: 1186414261}
+  DropCapaMediaValor: 
+  DropCapaInferior: {fileID: 1411712333}
+  DropCapaInferiorValor: 
 --- !u!95 &1828059006
 Animator:
   serializedVersion: 7
