@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class NewMonoBehaviourScript : MonoBehaviour
+public class PerlinNoise : MonoBehaviour
 {
     /// Ignacio - script basado en el siguiente video de youtube
     /// youtube: https://www.youtube.com/watch?v=bG0uEXV6aHQ
@@ -17,7 +17,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
     public Renderer render;
     public Material material;
 
-    [SerializeField] private float zoom;
+    [SerializeField] public float zoom;
     [SerializeField] private float xCordZoom;
     [SerializeField] private float yCordZoom;
     [SerializeField] private float contadorMovimientoFondo;
@@ -60,8 +60,17 @@ public class NewMonoBehaviourScript : MonoBehaviour
 
     }
 
+    public void ActualizarParametrosPerlin(int nuevoWidth, int nuevoHeight, float nuevoZoom, float nuevoXCordZoom, float nuevoYCordZoom)
+    {
+        width = nuevoWidth;
+        height = nuevoHeight;
+        zoom = nuevoZoom;
+        xCordZoom = nuevoXCordZoom;
+        yCordZoom = nuevoYCordZoom;
 
-
+        // Regenerar la textura con los nuevos parámetros
+        render.material.mainTexture = GenerarTextura();
+    }
 
     Texture2D GenerarTextura()
     {
@@ -165,5 +174,11 @@ public class NewMonoBehaviourScript : MonoBehaviour
         float l1 = Lerp(in00, in10, Fade(x));
         float l2 = Lerp(in01, in11, Fade(x));
         return Lerp(l1, l2, Fade(y)) + 0.5f;
+    }
+
+
+    public void ChangeZoom(int value)
+    {
+        zoom = value;
     }
 }
