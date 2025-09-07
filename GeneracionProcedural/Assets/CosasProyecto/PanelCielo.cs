@@ -17,6 +17,12 @@ public class PanelCielo : MonoBehaviour
     private int anchoNumero;
     private float zoomNumero;
 
+    public TMP_Dropdown ColorInicial;
+    public string ColorInicialValor;
+
+    public TMP_Dropdown ColorFinal;
+    public string ColorFinalValor;
+
 
 
     void Start()
@@ -44,6 +50,19 @@ public class PanelCielo : MonoBehaviour
 
     void presionarGenerador()
     {
+        // Obtener el nombre del color seleccionado en cada dropdown
+        string colorInicialNombre = ColorInicial.options[ColorInicial.value].text;
+        string colorFinalNombre = ColorFinal.options[ColorFinal.value].text;
+
+        // Convertir el nombre a Color
+        Color colorInicial = ColorDesdeNombre(colorInicialNombre);
+        Color colorFinal = ColorDesdeNombre(colorFinalNombre);
+
+        // Asignar los colores al PerlinNoise
+        perlinNoise.colorInicial = colorInicial;
+        perlinNoise.colorFinal = colorFinal;
+
+        // Actualizar los parámetros y la textura
         perlinNoise.ActualizarParametrosPerlin(anchoNumero, alturaNumero, zoomNumero, 0f, 0f);
     }
 
@@ -62,4 +81,16 @@ public class PanelCielo : MonoBehaviour
         }
     }
 
+    private Color ColorDesdeNombre(string nombre)
+    {
+        switch (nombre)
+        {
+            case "Azul": return Color.blue;
+            case "Blanco": return Color.white;
+            case "Verde": return Color.green;
+            case "Negro": return Color.black;
+            case "Amarillo": return Color.yellow;
+            default: return Color.white;
+        }
+    }
 }

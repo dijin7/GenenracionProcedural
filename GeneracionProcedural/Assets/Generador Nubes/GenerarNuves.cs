@@ -99,7 +99,7 @@ public class GenerarNuves : MonoBehaviour
 public class MovimientoNube : MonoBehaviour
 {
     public float velocidad = 1f;
-
+    //cambios
     void Update()
     {
         transform.position += Vector3.down * velocidad * Time.deltaTime;
