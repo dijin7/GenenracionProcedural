@@ -7,6 +7,8 @@ TagManager:
   - Hierba
   - Tierra
   - Piedra
+  - PlantaLSystem
+  - Line
   layers:
   - Default
   - TransparentFX

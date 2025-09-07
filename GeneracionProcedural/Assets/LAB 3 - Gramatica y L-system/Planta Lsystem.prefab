@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 875782567819136590}
   m_Layer: 0
   m_Name: Planta Lsystem
-  m_TagString: Untagged
+  m_TagString: PlantaLSystem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   axiom: F
-  iterations: 3
-  angle: 30
-  length: 1
-  cantidadPlantas: 2
+  iterations: 1
+  angle: 20
+  length: 0.1
+  cantidadPlantas: 1
   plantaPrefab: {fileID: 0}

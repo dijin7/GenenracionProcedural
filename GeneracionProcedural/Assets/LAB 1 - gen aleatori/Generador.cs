@@ -62,17 +62,16 @@ public class SCRIPT : MonoBehaviour
                 {
                     aparecerObjeto(tierra, x, y);
                 }
+            }
 
-                if(TotalDistanciaAparicionPiedra == altura)
-                {
-                    aparecerObjeto(piedra, x, altura);
-                }
-                else
-                {
-                    aparecerObjeto(pasto, x, altura);
-                }
-
-
+            // Solo una vez por columna
+            if(TotalDistanciaAparicionPiedra == altura)
+            {
+                aparecerObjeto(piedra, x, altura);
+            }
+            else
+            {
+                aparecerObjeto(pasto, x, altura);
             }
         }
     }
@@ -106,7 +105,7 @@ public class SCRIPT : MonoBehaviour
 
     void aparecerObjeto(GameObject objeto, int anchoObjeto, int alturaObjeto)
     {
-        GameObject instancia = Instantiate(objeto, new Vector2(anchoObjeto, alturaObjeto), Quaternion.identity);
+        GameObject instancia = Instantiate(objeto, new Vector3(anchoObjeto, alturaObjeto, 0), Quaternion.identity);
         instancia.transform.parent = this.transform;
         if (objeto.name.ToLower().Contains("hierba") || objeto.name.ToLower().Contains("pasto"))
         {

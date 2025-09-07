@@ -14,31 +14,28 @@ public class Grama : MonoBehaviour
 
     [Header("Prefab de la planta (este mismo script)")]
     public GameObject plantaPrefab;
-    //public GameObject ramitaPrefab;
+    [HideInInspector]
+    public string reglaAleatoriaActual = "FF+[+F-F-F]-[-F+F+F]"; // Valor por defecto
+
     private string currentString;
     private Dictionary<char, string> rules = new Dictionary<char, string>();
 
     void Start()
     {
-        if (plantaPrefab != null)
+        if (plantaPrefab != null && gameObject.name == "SembradorGrama")
         {
             StartCoroutine(EsperarYCrearPlantas());
             return;
         }
 
-        // L-system normal (los clones dibujan la planta)
-        rules.Add('F', "FF+[+F-F-F]-[-F+F+F]");
-        currentString = GenerateLSystem(axiom, iterations);
-        DrawLSystem(currentString);
+        // Solo genera el árbol si no es un clon instanciado por el sembrador
     }
 
-    System.Collections.IEnumerator EsperarYCrearPlantas()
+    public System.Collections.IEnumerator EsperarYCrearPlantas()
     {
-        // Espera unos frames para que el terreno se genere
-        yield return new WaitForSeconds(0.1f); // Puedes ajustar el tiempo si es necesario
-
+        yield return new WaitForSeconds(0.1f);
         CrearPlantasSobreHierba();
-        Destroy(this); // El sembrador no dibuja planta
+        Destroy(gameObject);
     }
 
     void CrearPlantasSobreHierba()
@@ -56,8 +53,14 @@ public class Grama : MonoBehaviour
             GameObject bloque = bloquesHierba[indices[idx]];
             indices.RemoveAt(idx);
 
-            Vector3 pos = bloque.transform.position + Vector3.up * 0.5f; // Ajusta si es necesario
-            Instantiate(plantaPrefab, pos, Quaternion.identity);
+            Vector3 pos = bloque.transform.position + Vector3.up * 0.5f;
+            GameObject nuevaPlanta = Instantiate(plantaPrefab, pos, Quaternion.identity);
+            nuevaPlanta.tag = "PlantaLSystem";
+            Grama grama = nuevaPlanta.GetComponent<Grama>();
+            if (grama != null)
+            {
+                grama.InicializarYGenerar(axiom, iterations, angle, length, reglaAleatoriaActual);
+            }
         }
     }
 
@@ -92,9 +95,8 @@ public class Grama : MonoBehaviour
             {
                 Vector3 start = position;
                 position += rotation * Vector3.up * length;
-                Debug.DrawLine(start, position, Color.green, 100f, false);
-               
                 LineRenderer lineRenderer = new GameObject("Line").AddComponent<LineRenderer>();
+                lineRenderer.gameObject.tag = "Line";
                 lineRenderer.startWidth = 0.1f;
                 lineRenderer.endWidth = 0.1f;
                 lineRenderer.positionCount = 2;
@@ -103,12 +105,6 @@ public class Grama : MonoBehaviour
                 lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
                 lineRenderer.startColor = Color.yellow;
                 lineRenderer.endColor = Color.red;
-
-                //Instantiate(ramitaPrefab, start, rotation);
-
-                // Ajusta la escala de la ramita para que coincida con la longitud
-                //positionStack.Push(start);
-                //ramitaPrefab.transform.localScale = new Vector3(ramitaPrefab.transform.localScale.x, length / 2, ramitaPrefab.transform.localScale.z);
 
             }
             else if (c == '+')
@@ -130,5 +126,33 @@ public class Grama : MonoBehaviour
                 rotation = rotationStack.Pop();
             }
         }
+    }
+
+    public void InicializarYGenerar(string axiom, int iterations, float angle, float length, string reglaF)
+    {
+        this.axiom = axiom;
+        this.iterations = iterations;
+        this.angle = angle;
+        this.length = length;
+
+        rules.Clear();
+        rules.Add('F', reglaF);
+        currentString = GenerateLSystem(this.axiom, this.iterations);
+        DrawLSystem(currentString);
+    }
+
+    public string GenerarReglaAleatoria()
+    {
+        
+        string[] opciones = { "F", "F+F", "F-F", "F[+F]F[-F]F", "F[+F-F]F", "F[-F+F]F", "FF", "F[+F]F", "F[-F]F" };
+        int n = Random.Range(2, 10); // Número de segmentos en la regla
+        string regla = "";
+        for (int i = 0; i < n; i++)
+        {
+            regla += opciones[Random.Range(0, opciones.Length)];
+            if (Random.value > 0.7f) regla += "+"; // Añade giro ocasional
+            if (Random.value > 0.7f) regla += "-"; // Añade giro ocasional
+        }
+        return regla;
     }
 }
