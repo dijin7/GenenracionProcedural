@@ -260,7 +260,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   escenas:
   - PrimeraEscena
-  - SegundaEscena
+  - Segunda forma
 --- !u!4 &8734755
 Transform:
   m_ObjectHideFlags: 0
