@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class PerlinNoise : MonoBehaviour
 {
@@ -36,6 +37,9 @@ public class PerlinNoise : MonoBehaviour
     public int cantidadCirculosAgua = 5;
     public float radioMinAgua = 5f;
     public float radioMaxAgua = 12f;
+
+    private readonly System.Collections.Generic.List<GameObject> bloquesAgua = new();
+    private readonly System.Collections.Generic.List<GameObject> bloquesTierra = new();
 
     void Start()
     {
@@ -78,6 +82,24 @@ public class PerlinNoise : MonoBehaviour
         // Regenerar la textura con los nuevos parámetros
         if (render != null)
             render.material.mainTexture = GenerarTextura();
+    }
+
+    public void ActualizarCharcosAgua(int cantidad, float radiomin, float radiomax)
+    {
+        cantidadCirculosAgua = cantidad;
+        radioMinAgua = radiomin;
+        radioMaxAgua = radiomax;
+
+        // Destruir los bloques previos
+        foreach (var obj in bloquesAgua)
+            Destroy(obj);
+        foreach (var obj in bloquesTierra)
+            Destroy(obj);
+
+        bloquesAgua.Clear();
+        bloquesTierra.Clear();
+
+        GenerarTerrenoConPerlin();
     }
 
     Texture2D GenerarTextura()
@@ -192,7 +214,9 @@ public class PerlinNoise : MonoBehaviour
 
     void GenerarTerrenoConPerlin()
     {
-        // 1. Genera los círculos de agua
+        bloquesAgua.Clear();
+        bloquesTierra.Clear();
+
         Vector2[] centrosAgua = new Vector2[cantidadCirculosAgua];
         float[] radiosAgua = new float[cantidadCirculosAgua];
         for (int i = 0; i < cantidadCirculosAgua; i++)
@@ -203,7 +227,6 @@ public class PerlinNoise : MonoBehaviour
             radiosAgua[i] = Random.Range(radioMinAgua, radioMaxAgua);
         }
 
-        // 2. Genera el terreno y decide si cada bloque es agua o tierra
         float offsetX = (width * 0.1f) / 2f;
         float offsetY = (height * 0.5f * 0.1f) / 2f;
 
@@ -226,9 +249,9 @@ public class PerlinNoise : MonoBehaviour
                 }
 
                 if (esAgua)
-                    Instantiate(bloqueAguaPrefab, posicion, Quaternion.identity);
+                    bloquesAgua.Add(Instantiate(bloqueAguaPrefab, posicion, Quaternion.identity));
                 else
-                    Instantiate(bloqueTierraPrefab, posicion, Quaternion.identity);
+                    bloquesTierra.Add(Instantiate(bloqueTierraPrefab, posicion, Quaternion.identity));
             }
         }
     }
