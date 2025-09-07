@@ -18,6 +18,9 @@ public class PerlinNoise : MonoBehaviour
     public Material material;
 
     [SerializeField] public float zoom;
+    public Color colorInicial = Color.blue;
+    public Color colorFinal = Color.white;
+
     [SerializeField] private float xCordZoom;
     [SerializeField] private float yCordZoom;
     [SerializeField] private float contadorMovimientoFondo;
@@ -106,7 +109,7 @@ public class PerlinNoise : MonoBehaviour
         //quiero preguntarle al profe con respecto a la matematica de perlinNoise 
         float sample = Noise2D(xCordenada, yCordenada);
 
-        return Color.Lerp(Color.blue, Color.white, sample); //Color.lerp mezcla los colores azul y blanco segun en  base al sample
+        return Color.Lerp(colorInicial, colorFinal, sample); //Color.lerp mezcla los colores azul y blanco segun en  base al sample
     }
 
     private void InitPerlin()
