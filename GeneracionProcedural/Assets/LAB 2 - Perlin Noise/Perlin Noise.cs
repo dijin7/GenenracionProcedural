@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
 
 public class PerlinNoise : MonoBehaviour
 {
@@ -29,7 +30,12 @@ public class PerlinNoise : MonoBehaviour
     private Vector2[] cells2d;
     private int[] perm;
 
+    public GameObject bloqueTierraPrefab; // Asigna el prefab café en el inspector
+    public GameObject bloqueAguaPrefab;   // Asigna el prefab celeste en el inspector
 
+    public int cantidadCirculosAgua = 5;
+    public float radioMinAgua = 5f;
+    public float radioMaxAgua = 12f;
 
     void Start()
     {
@@ -38,29 +44,27 @@ public class PerlinNoise : MonoBehaviour
 
         InitPerlin();
 
-
-        //agarro el material
         render = GetComponent<Renderer>();
-        render.material.mainTexture = GenerarTextura();
+        if (render != null)
+            render.material.mainTexture = GenerarTextura();
 
-
-        //modificación de color (sin motivo aparente)
-        //material.color = Color.blue;
+        // Solo genera terreno si está en la escena específica
+        if (SceneManager.GetActiveScene().name == "Segunda forma")
+        {
+            GenerarTerrenoConPerlin();
+        }
     }
 
     void FixedUpdate()
     {
-
-        //Cosas para que el fondo se mueva 
         contadorMovimientoFondo++;
         if (contadorMovimientoFondo > 5)
         {
             xCordZoom++;
-            render.material.mainTexture = GenerarTextura();
+            if (render != null)
+                render.material.mainTexture = GenerarTextura();
             contadorMovimientoFondo = 0f;
         }
-
-
     }
 
     public void ActualizarParametrosPerlin(int nuevoWidth, int nuevoHeight, float nuevoZoom, float nuevoXCordZoom, float nuevoYCordZoom)
@@ -72,7 +76,8 @@ public class PerlinNoise : MonoBehaviour
         yCordZoom = nuevoYCordZoom;
 
         // Regenerar la textura con los nuevos parámetros
-        render.material.mainTexture = GenerarTextura();
+        if (render != null)
+            render.material.mainTexture = GenerarTextura();
     }
 
     Texture2D GenerarTextura()
@@ -183,5 +188,48 @@ public class PerlinNoise : MonoBehaviour
     public void ChangeZoom(int value)
     {
         zoom = value;
+    }
+
+    void GenerarTerrenoConPerlin()
+    {
+        // 1. Genera los círculos de agua
+        Vector2[] centrosAgua = new Vector2[cantidadCirculosAgua];
+        float[] radiosAgua = new float[cantidadCirculosAgua];
+        for (int i = 0; i < cantidadCirculosAgua; i++)
+        {
+            float centroX = Random.Range(width * 0.2f, width * 0.8f);
+            float centroY = Random.Range(height * 0.2f, height * 0.8f);
+            centrosAgua[i] = new Vector2(centroX, centroY);
+            radiosAgua[i] = Random.Range(radioMinAgua, radioMaxAgua);
+        }
+
+        // 2. Genera el terreno y decide si cada bloque es agua o tierra
+        float offsetX = (width * 0.1f) / 2f;
+        float offsetY = (height * 0.5f * 0.1f) / 2f;
+
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height * 0.5f; y++)
+            {
+                Vector3 posicion = new Vector3(x * 0.1f - offsetX, y * 0.1f - offsetY, 0);
+
+                bool esAgua = false;
+                Vector2 punto = new Vector2(x, y);
+
+                for (int i = 0; i < cantidadCirculosAgua; i++)
+                {
+                    if (Vector2.Distance(punto, centrosAgua[i]) < radiosAgua[i])
+                    {
+                        esAgua = true;
+                        break;
+                    }
+                }
+
+                if (esAgua)
+                    Instantiate(bloqueAguaPrefab, posicion, Quaternion.identity);
+                else
+                    Instantiate(bloqueTierraPrefab, posicion, Quaternion.identity);
+            }
+        }
     }
 }
